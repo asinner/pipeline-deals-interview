@@ -15,7 +15,10 @@ class Api::DealsController < ApplicationController
     })
 
     # Cache all results for better performance, avoid rate limiting errors,
-    # and prevent abuse of the API.
+    # and prevent abuse of the API. Although clientside aggregation can work
+    # in this scenario, it is not ideal for reporting as it requires alot
+    # of unnecessary overhead and uses paginated APIs. A better approach
+    # is to perform the aggregation at the database layer.
     @deals = Rails.cache.fetch(key, expires_in: index_expiration_length) do
       PipelineDeals::Deal.all({
         params: @parameters

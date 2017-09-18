@@ -197,6 +197,11 @@ export class StagesChart extends React.PureComponent<{}, ChartsState> {
     return Color(defaultColor).alpha(0.8).rgbString()
   }
 
+  // reduceDeals makes some assumptions about the value of a deal. Aggregating
+  // the data assumes that each value refers to a single currency. For example,
+  // if each deal's value in cents refers to a single currency then it makes
+  // sense to aggregate. However, if each deal's value is implicitly localized
+  // to a currency then aggregating it does not make sense.
   private reduceDeals(prev: StageStats, curr: data.Deal): StageStats {
     const name = curr.deal_stage.name;
     const percent = curr.deal_stage.percent;
