@@ -1,5 +1,34 @@
+# The Api::DealsController acts as a proxy for the PipelineDeals API. It 
+# performs caching in order prevent rate limiting errors as well as 
+# increase performance.
 class Api::DealsController < ApplicationController
   def index
+    # memoize the permitted parameters object
+    @parameters = permitted_index_params
+    
+    # Since this API permits query parameters, it is important to ensure
+    # the cache key reflects the data being retrieved. This method assumes
+    # that permitted_index_params is deterministic.
+    key = CacheKey.all_deals({
+      version: PipelineDeals.api_version,
+      params: @parameters
+    })
+
+    # Cache all results for better performance, avoid rate limiting errors,
+    # and prevent abuse of the API.
+    @deals = Rails.cache.fetch(key, expires_in: index_expiration_length) do
+      PipelineDeals::Deal.all({
+        params: @parameters
+      })
+    end
+
+    # For right now, only support JSON. In the future, we may expect to 
+    # support multiple formats. If in the future, the API asserts the only
+    # format supported is JSON then the serialization step can be moved to the 
+    # cache layer.
+    respond_to do |format|
+      format.json { render json: { deals: @deals } }
+    end
   end
 
   protected
@@ -34,5 +63,13 @@ class Api::DealsController < ApplicationController
           :sort
         ]
       )
+    end
+
+    # Depending on the rate of change, this length can be 
+    # modified to determine how often we should query the actual
+    # API for the latest data. For right now, let's assume that a company's
+    # data goes stale after 1 minute.
+    def index_expiration_length
+      60.seconds
     end
 end

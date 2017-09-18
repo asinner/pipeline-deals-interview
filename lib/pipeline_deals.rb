@@ -11,5 +11,11 @@ module PipelineDeals
     # operation. It should be noted that end users should instead pass in 
     # the api_key with every request instead for thread-safe operations.
     attr_accessor :api_key
+
+    # add api_version here for now until the site versioning functionality
+    # has been default.
+    def api_version
+      :v3
+    end
   end
 end
