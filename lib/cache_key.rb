@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CacheKey is the authoritative source for creating cache keys.
 module CacheKey
   def self.all_deals(args)

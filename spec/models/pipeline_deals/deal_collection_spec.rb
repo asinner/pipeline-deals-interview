@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe PipelineDeals::DealCollection, type: :model do
@@ -9,7 +11,7 @@ RSpec.describe PipelineDeals::DealCollection, type: :model do
 
   describe 'initialization' do
     it 'returns entries' do
-      @data = {"entries" => []}
+      @data = { 'entries' => [] }
       @collection = PipelineDeals::DealCollection.new(@data)
       expect(@collection).to eq(@data['entries'])
     end

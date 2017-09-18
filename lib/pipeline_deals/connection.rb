@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module PipelineDeals
   # Connection inherits from the ActiveResource::Connection class. It will
   # override the methods necessary for adding default parameters to each
   # request.
   class Connection < ActiveResource::Connection
-
     private
+
       # Internally, ActiveResource::Connection calls this method in order
       # to send a network request. This method can be overridden to add
-      # add our own logic. Parameters must be added differently per the 
+      # add our own logic. Parameters must be added differently per the
       # method being used. For example, GET, HEAD, & DELETE methods can't
       # contain a request body, so all parameters must go into the query
       # string. For everything else, the default parameters can be encoded
@@ -29,9 +31,9 @@ module PipelineDeals
       def body_with_defaults(*arguments)
         body = arguments.slice!(0)
         begin
-            body = defaults.merge!(JSON.parse(body))
-        rescue => exception
-            body = defaults
+          body = defaults.merge!(JSON.parse(body))
+        rescue JSON::ParserError
+          body = defaults
         end
         arguments.unshift(body)
       end
@@ -42,12 +44,11 @@ module PipelineDeals
         uri = URI.parse(path)
         query = uri.query || ''
         params = URI.decode_www_form(query)
-        params = params.reduce(defaults) do |params, param|
+        params = params.each_with_object(defaults) do |param, parameters|
           k, v = param
-          params[k] = v
-          params
+          parameters[k] = v
         end
-        params.map { |k,v| [k,v] }
+        params.map { |k, v| [k, v] }
         uri.query = URI.encode_www_form(params)
         uri.to_s
       end
@@ -58,7 +59,7 @@ module PipelineDeals
 
       # The default parameters added to each request.
       def defaults
-        {api_key: api_key}
+        { api_key: api_key }
       end
   end
 end
