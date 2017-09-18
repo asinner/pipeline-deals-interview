@@ -8,7 +8,7 @@ a column chart with aggregation totals for every stage.
 - Ruby 2.4.1
 - Yarn
 
-First install the Rails dependencies:
+First, install the Rails dependencies:
 
 ```sh
 bundle install
@@ -20,25 +20,25 @@ Next, install Javascript dependencies:
 yarn
 ```
 
-Then:
+Then, start the development server:
 
 ```sh
 rails s
 ```
 
-Then, you can view the application in your browser at http://localhost:3000.
+After the webserver boots up, you can view application in your browser at http://localhost:3000.
 
 ## Production
 
 In order to run the production server you will need to follow the steps above for running the development server.
 
-Then:
+After installing all dependencies you must compile the assets:
 
 ```sh
 rake assets:precompile
 ```
 
-Then you can start the server:
+Then, start the server:
 
 ```sh
 RAILS_ENV=production SECRET_KEY_BASE=<your-ultra-secure-key> RAILS_SERVE_STATIC_FILES=true rails s
