@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { HomePage } from '../src/home_page'
+import { HomePage } from '../src/components/home_page'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
