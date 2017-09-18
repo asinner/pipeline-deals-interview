@@ -23,7 +23,7 @@ RSpec.describe PipelineDeals::Resource, type: :model do
   
   describe '#site' do
     it 'returns the PipelineDeals API url' do
-      expect(PipelineDeals::Resource.site.to_s).to eq('https://app.pipelinedeals.com/api/v3')
+      expect(PipelineDeals::Resource.site.to_s).to eq('https://app.pipelinedeals.com/api/v3/')
     end
   end
 end

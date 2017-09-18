@@ -13,6 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 
 group :development, :test do
+  gem 'webmock', '~> 3.0.1'
   gem 'rspec-rails', '~> 3.6'  
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
