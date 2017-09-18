@@ -1,5 +1,6 @@
 require 'pipeline_deals/resource'
 require 'pipeline_deals/connection'
+require 'pipeline_deals/resources/deal_collection'
 require 'pipeline_deals/resources/deal'
 
 # The PipelineDeals module will encapsulate all of the logic necessary for 

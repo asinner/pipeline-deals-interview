@@ -3,7 +3,7 @@ module PipelineDeals
   # override the methods necessary for adding default parameters to each
   # request.
   class Connection < ActiveResource::Connection
-    
+
     private
       # Internally, ActiveResource::Connection calls this method in order
       # to send a network request. This method can be overridden to add
@@ -34,7 +34,7 @@ module PipelineDeals
             body = defaults
         end
         arguments.unshift(body)
-    end
+      end
 
       # path_with_defaults merges the default parameters onto the query
       # string and returns the new path.
