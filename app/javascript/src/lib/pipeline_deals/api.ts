@@ -5,5 +5,5 @@ import { DealResource as deal } from './resources/deal';
 // a proxy to the PipelineDeals API, this code should
 // be packaged for easier maintenance & distribution.
 export const api = {
-    deal
+  deal
 }
