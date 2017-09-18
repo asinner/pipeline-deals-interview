@@ -43,3 +43,12 @@ Then you can start the server:
 ```sh
 RAILS_ENV=production SECRET_KEY_BASE=<your-ultra-secure-key> RAILS_SERVE_STATIC_FILES=true rails s
 ```
+
+
+## Running the tests
+
+To run the test suite you can use the `rspec` command:
+
+```sh
+rspec
+```
